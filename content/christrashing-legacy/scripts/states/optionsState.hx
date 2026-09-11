@@ -150,7 +150,8 @@ function openSelectedSubstate(label:String)
 		case 'Notes':
 			openSubState(new NoteSettingsSubState());
 		case 'Controls':
-			openSubState(new ControlsSubState());
+			final gamepad = FlxG.gamepads.getFirstActiveGamepad();
+			openSubState(new ControlsSubState(gamepad != null ? Gamepad(gamepad.id) : Keys));
 		case 'Graphics':
 			openSubState(new GraphicsSettingsSubState());
 		case 'Visuals':
