@@ -13,11 +13,6 @@ import funkin.states.options.NoteOffsetState;
 import funkin.states.options.OptionsState;
 import flixel.util.FlxTimer;
 
-if (FlxG.onMobile) {
-import mobile.controls.MobileDPadMode;
-import mobile.controls.MobileActionMode;
-}
-
 var options:Array<String> = [
 	'Notes',
 	'Controls',
@@ -78,8 +73,6 @@ function onLoad() {
 	}
     
     changeSelection();
-    
-    if (FlxG.onMobile) addVirtualPad(MobileDPadMode.NONE, MobileActionMode.B);
 }
 
 function onUpdate(elapsed:Float) {
@@ -167,6 +160,5 @@ function onCloseSubState() {
 	blockInput = true;
 	new FlxTimer().start(0.1, function(tmr:FlxTimer) {
 		blockInput = false;
-		if (FlxG.onMobile) Controls.instance.isInSubstate = false;
 	});
 }
