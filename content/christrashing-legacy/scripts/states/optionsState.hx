@@ -1,5 +1,6 @@
 import flixel.addons.display.FlxBackdrop;
 import flixel.group.FlxGroup.FlxTypedGroup;
+
 import funkin.objects.Alphabet;
 import funkin.states.MainMenuState;
 import funkin.states.PlayState;
@@ -11,6 +12,7 @@ import funkin.states.options.GameplaySettingsSubState;
 import funkin.states.options.MiscSubState;
 import funkin.states.options.NoteOffsetState;
 import funkin.states.options.OptionsState;
+
 import flixel.util.FlxTimer;
 
 var options:Array<String> = [
@@ -22,79 +24,87 @@ var options:Array<String> = [
 	'Gameplay',
 	"Misc"
 ];
+
 var curSelected:Int = 0;
 var grpOptions:FlxTypedGroup<Dynamic>;
-var blockInput:Bool = false; 
+var blockInput:Bool = false;
 
-function onLoad() {
-    persistentUpdate = true;
-    FlxG.mouse.visible = true; 
-    
-    brancothings = new FlxSprite(0, 0).loadGraphic(Paths.image('menus/config/background/brancothings'));
-    brancothings.screenCenter();
-    brancothings.scrollFactor.set(1, 1);
-    add(brancothings);
-    
-    backdrop = new FlxBackdrop(Paths.image('menus/config/background/backdrop'), FlxAxes.XY);
-    backdrop.velocity.set(-40, -40);
-    add(backdrop);
-    
+function onLoad()
+{
+	persistentUpdate = true;
+	FlxG.mouse.visible = true;
+	
+	brancothings = new FlxSprite(0, 0).loadGraphic(Paths.image('menus/config/background/brancothings'));
+	brancothings.screenCenter();
+	brancothings.scrollFactor.set(1, 1);
+	add(brancothings);
+	
+	backdrop = new FlxBackdrop(Paths.image('menus/config/background/backdrop'), FlxAxes.XY);
+	backdrop.velocity.set(-40, -40);
+	add(backdrop);
+	
 	background = new FlxSprite(0, 0).loadGraphic(Paths.image('menus/config/background/background'));
-    background.screenCenter();
-    background.scrollFactor.set(1, 1);
-    add(background);
-    
-    guyConfig = new FlxSprite(670, 80);
+	background.screenCenter();
+	background.scrollFactor.set(1, 1);
+	add(background);
+	
+	guyConfig = new FlxSprite(670, 80);
 	guyConfig.frames = Paths.getSparrowAtlas('menus/config/guyconfig');
 	guyConfig.animation.addByPrefix('idle', "idle", 29, true);
 	guyConfig.animation.play('idle', true);
 	add(guyConfig);
-    
-    coisas = new FlxSprite(0, 0).loadGraphic(Paths.image('menus/config/background/coisas'));
-    coisas.screenCenter();
-    coisas.scrollFactor.set(1, 1);
-    add(coisas);
-    
-    eh = new FlxSprite(0, 0).loadGraphic(Paths.image('menus/config/background/eh'));
-    eh.screenCenter();
-    eh.scrollFactor.set(1, 1);
-    add(eh);
-    
-    grpOptions = new FlxTypedGroup();
+	
+	coisas = new FlxSprite(0, 0).loadGraphic(Paths.image('menus/config/background/coisas'));
+	coisas.screenCenter();
+	coisas.scrollFactor.set(1, 1);
+	add(coisas);
+	
+	eh = new FlxSprite(0, 0).loadGraphic(Paths.image('menus/config/background/eh'));
+	eh.screenCenter();
+	eh.scrollFactor.set(1, 1);
+	add(eh);
+	
+	grpOptions = new FlxTypedGroup();
 	add(grpOptions);
 	
 	for (i in 0...options.length)
 	{
 		var optionText:Alphabet = new Alphabet(0, 0, options[i], true);
 		optionText.screenCenter();
-		optionText.x = 10; 
-		optionText.y += (100 * (i - (options.length / 2))) + 50;		
+		optionText.x = 10;
+		optionText.y += (100 * (i - (options.length / 2))) + 50;
 		grpOptions.add(optionText);
 	}
-    
-    changeSelection();
+	
+	changeSelection();
 }
 
-function onUpdate(elapsed:Float) {
+function onUpdate(elapsed:Float)
+{
 	if (blockInput) return;
 	
 	if (Controls.instance.UI_UP_P) changeSelection(-1);
 	if (Controls.instance.UI_DOWN_P) changeSelection(1);
 	
-	if (FlxG.mouse.wheel != 0) {
-		changeSelection(-FlxG.mouse.wheel); 
+	if (FlxG.mouse.wheel != 0)
+	{
+		changeSelection(-FlxG.mouse.wheel);
 	}
 	
-	for (i in 0...grpOptions.members.length) {
+	for (i in 0...grpOptions.members.length)
+	{
 		var item = grpOptions.members[i];
 		
-		if (FlxG.mouse.overlaps(item)) {
-			if (curSelected != i) {
+		if (FlxG.mouse.overlaps(item))
+		{
+			if (curSelected != i)
+			{
 				curSelected = i;
 				changeSelection(0);
 			}
 			
-			if (FlxG.mouse.justPressed) {
+			if (FlxG.mouse.justPressed)
+			{
 				openSelectedSubstate(options[curSelected]);
 			}
 		}
@@ -117,7 +127,8 @@ function onUpdate(elapsed:Float) {
 	}
 }
 
-function changeSelection(?diff:Int = 0) {
+function changeSelection(?diff:Int = 0)
+{
 	curSelected = FlxMath.wrap(curSelected + diff, 0, options.length - 1);
 	
 	for (idx => item in grpOptions.members)
@@ -131,8 +142,9 @@ function changeSelection(?diff:Int = 0) {
 	if (diff != 0) FlxG.sound.play(Paths.sound('scrollMenu'));
 }
 
-function openSelectedSubstate(label:String) {
-    blockInput = true;
+function openSelectedSubstate(label:String)
+{
+	blockInput = true;
 	switch (label)
 	{
 		case 'Notes':
@@ -152,7 +164,8 @@ function openSelectedSubstate(label:String) {
 	}
 }
 
-function onCloseSubState() {
+function onCloseSubState()
+{
 	persistentUpdate = true;
 	FlxG.mouse.visible = true;
 	ClientPrefs.flush();
