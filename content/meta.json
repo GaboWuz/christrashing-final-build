@@ -1,0 +1,14 @@
+{
+    "name": "Christrashing Oneshot'",
+    "description": "Nightmare Vision, Yeah!",
+    "global": false,
+
+    "windowTitle": "FNF': Christrashing'",
+    "iconFile": "ui/icon64",
+    "defaultTransition": "swipe",
+    
+    "stateRedirects": {
+        "MainMenuState": "mainMenu",
+        "OptionsState": "optionsState"
+    }
+}
