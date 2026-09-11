@@ -12,6 +12,7 @@ import funkin.states.options.GameplaySettingsSubState;
 import funkin.states.options.MiscSubState;
 import funkin.states.options.NoteOffsetState;
 import funkin.states.options.OptionsState;
+import funkin.input.Controls.Device;
 
 import flixel.util.FlxTimer;
 
@@ -151,7 +152,7 @@ function openSelectedSubstate(label:String)
 			openSubState(new NoteSettingsSubState());
 		case 'Controls':
 			final gamepad = FlxG.gamepads.getFirstActiveGamepad();
-			openSubState(new ControlsSubState(gamepad != null ? Gamepad(gamepad.id) : Keys));
+			openSubState(new ControlsSubState(gamepad != null ? Device.Gamepad(gamepad.id) : Device.Keys));
 		case 'Graphics':
 			openSubState(new GraphicsSettingsSubState());
 		case 'Visuals':
