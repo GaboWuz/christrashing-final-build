@@ -3,9 +3,10 @@
     "description": "Nightmare Vision, Yeah!",
     "global": true,
 
-    "windowTitle": "FNF': Christrashing'",
+    "windowTitle": "FNF': Christrashing' Legacy",
     "iconFile": "ui/icon64",
     "defaultTransition": "swipe",
+    "discordClientID": "1549794181541666968",
     
     "stateRedirects": {
         "MainMenuState": "mainMenu",

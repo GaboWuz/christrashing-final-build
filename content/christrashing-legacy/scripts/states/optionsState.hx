@@ -177,3 +177,8 @@ function onCloseSubState()
 		blockInput = false;
 	});
 }
+
+function onDestroy()
+{
+	FlxG.mouse.visible = false;
+}
