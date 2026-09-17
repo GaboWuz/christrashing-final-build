@@ -114,6 +114,7 @@ function onUpdate(elapsed:Float)
 	if (Controls.instance.BACK || FlxG.mouse.justPressedRight)
 	{
 		FlxG.sound.play(Paths.sound('cancelMenu'));
+		FlxG.mouse.visible = false;
 		if (OptionsState.onPlayState)
 		{
 			FlxG.switchState(new PlayState());
@@ -146,6 +147,7 @@ function changeSelection(?diff:Int = 0)
 function openSelectedSubstate(label:String)
 {
 	blockInput = true;
+	FlxG.mouse.visible = false;
 	switch (label)
 	{
 		case 'Notes':
@@ -176,9 +178,4 @@ function onCloseSubState()
 	new FlxTimer().start(0.1, function(tmr:FlxTimer) {
 		blockInput = false;
 	});
-}
-
-function onDestroy()
-{
-	FlxG.mouse.visible = false;
 }
